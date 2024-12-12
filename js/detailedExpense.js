@@ -12,7 +12,16 @@ function sumTotalAmounts(){
     });
     document.getElementById("detailedExpenseTotalAmmount").textContent = `Total expense: ${total}`;
 }
-
+/* Función para llenar el desplegable de categorías */
+function populateCategoryDropdown(selectElement) { 
+    const category = JSON.parse(localStorage.getItem("category")) || []; 
+    category.forEach((elm) => { 
+        const option = document.createElement("option"); 
+        option.value = elm.id; 
+        option.textContent = elm.categoryName; 
+        selectElement.appendChild(option);
+    });
+}
 /* Agregar divs desde el template */
 document.getElementById("addDetailedExpense").addEventListener("click", function (event) {
     event.preventDefault();
@@ -24,6 +33,8 @@ document.getElementById("addDetailedExpense").addEventListener("click", function
     newDiv.querySelectorAll("#detailedExpenseAmmount").forEach(input =>{
         input.addEventListener('blur', sumTotalAmounts);
     });
+    const newCategorySelect = newDiv.querySelector('#detailedExpenseCategory');
+    populateCategoryDropdown(newCategorySelect);
     sumTotalAmounts();
 });
 
@@ -66,85 +77,152 @@ account.forEach((elm) => {
     option.textContent = ` ${bankName} - ${elm.accountName} ${currencySymbol} ${elm.accountBalance}`;
     detailedExpenseAccount.appendChild(option);    
 });
+
+
 /* Opción dinámica de category */
-/* Seleccionamos el desplegable category */
-const detailedExpenseCategory = document.getElementById("detailedExpenseCategory");
-// Cargamos el array de transactions
-const category = JSON.parse(localStorage.getItem("category")) || [];
-// Iteramos sobre cada item para el contanido de cada option
-category.forEach((elm) => {
-    const option = document.createElement("option")
-    option.value = elm.id;
-    option.textContent =`${elm.categoryName}`
-    detailedExpenseCategory.appendChild(option)
-});
+// Inicializa el primer selector de categoría
+populateCategoryDropdown(document.getElementById("detailedExpenseCategory"));  
 
 
 
 /* ------------------------------------------------------------------------- */
 /* --------------------- MODIFICAR GRABARa CADA DIV --------------------------- */
 /* ------------------------------------------------------------------------- */
-/* Modificación de balance de cuenta */
-document.getElementById("saveDetailedExpense").addEventListener("click", function (event) {
+// /* Modificación de balance de cuenta */
+// document.getElementById("saveDetailedExpense").addEventListener("click", function (event) {
+//     event.preventDefault();
+//     /* Verificación del array */
+//     const account = JSON.parse(localStorage.getItem("account")) || [];
+//     /* Obtenemos los valores de la página */
+//     const detailedExpenseAccountId = parseInt(document.getElementById("detailedExpenseAccount").value);
+//     const detailedExpenseDescription = document.getElementById("detailedExpenseDescription").value;
+//     const detailedExpenseCategoryId = parseInt(document.getElementById("detailedExpenseCategory").value);
+//     const detailedExpenseAmmount = Math.abs(parseFloat(document.getElementById("detailedExpenseAmmount").value));
+//     const detailedExpenseCommentary = document.getElementById("detailedExpenseCommentary").value;
+    
+//     /* Validación de búsqueda de cuenta y categoría */
+//     const currentAccount = account.find(elm => elm.id === detailedExpenseAccountId)
+//     const currentCategory = category.find(elm =>  elm.id === detailedExpenseCategoryId)
+//     /* Validación de */
+//     if (!currentAccount || !currentCategory || !detailedExpenseDescription || isNaN(detailedExpenseAmmount) || !detailedExpenseCommentary){
+//         const detailedExpenseMessage = document.getElementById("detailedExpenseMessage");
+//         detailedExpenseMessage.textContent="Por favor ingrese valores válidos.";
+//         setTimeout(() => {
+//             window.location.reload();
+//         },1500);
+//         return;
+//     }
+//         const currentBalance = currentAccount.accountBalance - detailedExpenseAmmount;
+//     currentAccount.accountBalance = currentBalance;
+//     localStorage.setItem("account",JSON.stringify(account));
+
+//     // Creamos el objeto transaction
+//     const detailedTransaction = { 
+//         date: new Date().toISOString(), 
+//         accountId: detailedExpenseAccountId, 
+//         bankName: bank.find(b => b.id === currentAccount.accountBankId)?.bankName || "Unknown bank", 
+//         accountName: currentAccount.accountName,
+//         descriptionName: detailedExpenseDescription,
+//         categoryName: category.find(c => c.id === currentCategory.id)?.categoryName || "Unknown category", 
+//         amount: detailedExpenseAmmount,
+//         commentary: detailedExpenseCommentary,
+//         inventory: state.inventory, 
+//         transaction_type: state.transaction_type }; 
+//     // Cargar las transacciones históricas y agregar la nueva 
+//     const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+//     transactions.push(detailedTransaction); 
+//     localStorage.setItem("transactions", JSON.stringify(transactions));
+
+//     /* Mensaje de éxito */
+//     const detailedExpenseMessage = document.getElementById("detailedExpenseMessage");
+//     detailedExpenseMessage.textContent="Registro grabado con éxito.";
+//     /* Reseteamos los campos */
+//     document.getElementById("detailedExpenseAccount").value="";
+//     document.getElementById("detailedExpenseDescription").value="";
+//     document.getElementById("detailedExpenseCategory").value="";
+//     document.getElementById("detailedExpenseAmmount").value="";
+//     document.getElementById("detailedExpenseCommentary").value="";
+//     setTimeout(() => {
+//         window.location.reload();
+//     },1500);
+
+// }
+// );
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+
+/* Modificación de balance de cuenta */ 
+document.getElementById("saveDetailedExpense").addEventListener("click", function (event) { 
     event.preventDefault();
     /* Verificación del array */
     const account = JSON.parse(localStorage.getItem("account")) || [];
+    const category = JSON.parse(localStorage.getItem("category")) || [];
+    const state = JSON.parse(localStorage.getItem("state")) || [];
+    const bank = JSON.parse(localStorage.getItem("bank")) || [];
     /* Obtenemos los valores de la página */
     const detailedExpenseAccountId = parseInt(document.getElementById("detailedExpenseAccount").value);
-    const detailedExpenseDescription = document.getElementById("detailedExpenseDescription").value;
-    const detailedExpenseCategoryId = parseInt(document.getElementById("detailedExpenseCategory").value);
-    const detailedExpenseAmmount = Math.abs(parseFloat(document.getElementById("detailedExpenseAmmount").value));
-    const detailedExpenseCommentary = document.getElementById("detailedExpenseCommentary").value;
-    
-    /* Validación de búsqueda de cuenta y categoría */
-    const currentAccount = account.find(elm => elm.id === detailedExpenseAccountId)
-    const currentCategory = category.find(elm =>  elm.id === detailedExpenseCategoryId)
-    /* Validación de */
-    if (!currentAccount || !currentCategory || !detailedExpenseDescription || isNaN(detailedExpenseAmmount) || !detailedExpenseCommentary){
+    const currentAccount = account.find(elm => elm.id === detailedExpenseAccountId);
+    if (!currentAccount) { 
         const detailedExpenseMessage = document.getElementById("detailedExpenseMessage");
-        detailedExpenseMessage.textContent="Por favor ingrese valores válidos.";
-        setTimeout(() => {
-            window.location.reload();
-        },1500);
+        detailedExpenseMessage.textContent = "Por favor seleccione una cuenta válida.";
+        // setTimeout(() => { 
+        //     window.location.reload();
+        // }, 1500);
         return;
     }
-        const currentBalance = currentAccount.accountBalance - detailedExpenseAmmount;
-    currentAccount.accountBalance = currentBalance;
-    localStorage.setItem("account",JSON.stringify(account));
-
-    // Creamos el objeto transaction
+    const transactionDetails = []; 
+    document.querySelectorAll(".detailedExpense-div-container").forEach(container => { 
+        const detailedExpenseDescription = container.querySelector("#detailedExpenseDescription").value; 
+        const detailedExpenseCategoryId = parseInt(container.querySelector("#detailedExpenseCategory").value); 
+        const detailedExpenseAmmount = Math.abs(parseFloat(container.querySelector("#detailedExpenseAmmount").value)); 
+        const detailedExpenseCommentary = container.querySelector("#detailedExpenseCommentary").value; 
+        const currentCategory = category.find(elm => elm.id === detailedExpenseCategoryId); 
+        if (!currentCategory || !detailedExpenseDescription || isNaN(detailedExpenseAmmount) || !detailedExpenseCommentary) { 
+            const detailedExpenseMessage = document.getElementById("detailedExpenseMessage"); 
+            detailedExpenseMessage.textContent = "Por favor ingrese valores válidos en todos los detalles.";
+            setTimeout(() => { 
+                window.location.reload();
+            }, 1500);
+            return;
+        } 
+        transactionDetails.push({ 
+            descriptionName: detailedExpenseDescription, 
+            categoryName: currentCategory.categoryName, 
+            amount: detailedExpenseAmmount, 
+            commentary: detailedExpenseCommentary
+        });
+    });
+    /* Actualización de balance */
+    const totalAmount = transactionDetails.reduce((sum, detail) => sum + detail.amount, 0);
+    currentAccount.accountBalance -= totalAmount;
+    localStorage.setItem("account", JSON.stringify(account)); 
+    // Creamos el objeto de transacción con detalles
     const detailedTransaction = { 
-        date: new Date().toISOString(), 
-        accountId: detailedExpenseAccountId, 
-        bankName: bank.find(b => b.id === currentAccount.accountBankId)?.bankName || "Unknown bank", 
+        date: new Date().toISOString(),
+        accountId: detailedExpenseAccountId,
+        bankName: bank.find(b => b.id === currentAccount.accountBankId)?.bankName || "Unknown bank",
         accountName: currentAccount.accountName,
-        descriptionName: detailedExpenseDescription,
-        categoryName: category.find(c => c.id === currentCategory.id)?.categoryName || "Unknown category", 
-        amount: detailedExpenseAmmount,
-        commentary: detailedExpenseCommentary,
-        inventory: state.inventory, 
-        transaction_type: state.transaction_type }; 
+        transactionDetails: transactionDetails,
+        inventory: state.inventory,
+        transaction_type: state.transaction_type
+    }; 
     // Cargar las transacciones históricas y agregar la nueva 
     const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
     transactions.push(detailedTransaction); 
     localStorage.setItem("transactions", JSON.stringify(transactions));
-
     /* Mensaje de éxito */
-    const detailedExpenseMessage = document.getElementById("detailedExpenseMessage");
-    detailedExpenseMessage.textContent="Registro grabado con éxito.";
+    const detailedExpenseMessage = document.getElementById("detailedExpenseMessage"); 
+    detailedExpenseMessage.textContent = "Registro grabado con éxito."; 
     /* Reseteamos los campos */
-    document.getElementById("detailedExpenseAccount").value="";
-    document.getElementById("detailedExpenseDescription").value="";
-    document.getElementById("detailedExpenseCategory").value="";
-    document.getElementById("detailedExpenseAmmount").value="";
-    document.getElementById("detailedExpenseCommentary").value="";
+    document.getElementById("detailedExpenseAccount").value = ""; 
+    document.querySelectorAll(".detailedExpense-div-container").forEach(container => { 
+        container.querySelector("#detailedExpenseDescription").value = ""; 
+        container.querySelector("#detailedExpenseCategory").value = ""; 
+        container.querySelector("#detailedExpenseAmmount").value = ""; 
+        container.querySelector("#detailedExpenseCommentary").value = "";
+    });
     setTimeout(() => {
         window.location.reload();
-    },1500);
-
-}
-);
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-
+    }, 1500);
+});
