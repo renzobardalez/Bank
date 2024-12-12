@@ -51,6 +51,17 @@ body {
 /* -------- Contenedor exclusivo de Simple expense --------- */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
+/* Contenedor de simple y detailed container-grid */
+/* Interruptor de expense */
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+/* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 /* ------- Contenedor exclusivo de Detailed expense -------- */
@@ -252,6 +263,17 @@ header .action-header-grid .nav-bar .option-div {
 /* -------- Contenedor exclusivo de Simple expense --------- */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
+/* Contenedor de simple y detailed container-grid */
+/* Interruptor de expense */
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+/* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 /* ------- Contenedor exclusivo de Detailed expense -------- */
@@ -295,12 +317,6 @@ main {
   /*---------------------------------------------*/
   /*---------------------------------------------*/
   /*------------ Budget grid -------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*----------- Simple Expense grid -------------*/
-  /*---------------------------------------------*/
-  /*---------------------------------------------*/
-  /*----------- Detailed Expense grid -----------*/
   /*---------------------------------------------*/
   /*---------------------------------------------*/
   /*---------------- Income grid ----------------*/
@@ -687,11 +703,80 @@ main .budget-grid .budget-results-container .budget-container-div div {
   justify-content: center;
   flex-wrap: wrap;
 }
-main .simpleExpense-container-grid {
+main .expense-container-grid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas: "h1" "simpleExpenseform" "simpleExpensebtn";
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "h1" "form";
+  /*---------------------------------------------*/
+  /*----------- Simple Expense grid -------------*/
+  /*---------------------------------------------*/
+  /*---------------------------------------------*/
+  /*----------- Detailed Expense grid -----------*/
+  /*---------------------------------------------*/
+}
+main .expense-container-grid .expense-h1-toggle-div {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+  padding: 5px;
+  border: solid 1px #5e6666;
+}
+main .expense-container-grid .expense-h1-toggle-div .h1-container {
+  grid-area: h1;
+  margin: 5px;
+  padding: 5px;
+  border: solid 1px #2F4F4F;
+  text-align: left;
+  border: none;
+}
+main .expense-container-grid .expense-h1-toggle-div .switch-container {
+  display: flex;
+  align-items: center;
+}
+main .expense-container-grid .expense-h1-toggle-div .switch-container span {
+  margin-left: 10px;
+  font-size: 16px;
+}
+main .expense-container-grid .expense-h1-toggle-div .switch-container .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+main .expense-container-grid .expense-h1-toggle-div .switch-container .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+main .expense-container-grid .expense-h1-toggle-div .switch-container .switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+main .expense-container-grid .expense-h1-toggle-div .switch-container .switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 3px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+main .expense-container-grid .simpleExpense-container-grid {
+  grid-area: form;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "simpleExpenseform" "simpleExpensebtn";
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
@@ -699,14 +784,14 @@ main .simpleExpense-container-grid {
   align-items: center;
   text-align: center;
 }
-main .simpleExpense-container-grid .h1-container {
+main .expense-container-grid .simpleExpense-container-grid .h1-container {
   grid-area: h1;
   margin: 5px;
   padding: 5px;
   border: solid 1px #2F4F4F;
   text-align: left;
 }
-main .simpleExpense-container-grid .simpleExpense-grid-form {
+main .expense-container-grid .simpleExpense-container-grid .simpleExpense-grid-form {
   grid-area: simpleExpenseform;
   display: grid;
   gap: 1rem;
@@ -715,25 +800,26 @@ main .simpleExpense-container-grid .simpleExpense-grid-form {
   border: solid 1px #5e6666;
   grid-template-columns: auto 1fr;
 }
-main .simpleExpense-container-grid .simpleExpense-grid-form .simpleExpense-input {
+main .expense-container-grid .simpleExpense-container-grid .simpleExpense-grid-form .simpleExpense-input {
   display: grid;
   grid-column: 1/-1;
   grid-template-columns: subgrid;
   justify-items: end;
   align-items: baseline;
 }
-main .simpleExpense-container-grid .simpleExpense-grid-form .simpleExpense-form-field {
+main .expense-container-grid .simpleExpense-container-grid .simpleExpense-grid-form .simpleExpense-form-field {
   width: 100%;
 }
-main .simpleExpense-container-grid .simpleExpense-save-btn {
+main .expense-container-grid .simpleExpense-container-grid .simpleExpense-save-btn {
   grid-area: simpleExpensebtn;
   width: 100%;
 }
-main .detailedExpense-container-grid {
-  display: grid;
+main .expense-container-grid .detailedExpense-container-grid {
+  grid-area: form;
+  display: none;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas: "h1" "detailedExpenseform" "detailedExpensebtn";
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "detailedExpenseform" "detailedExpensebtn";
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
@@ -741,14 +827,14 @@ main .detailedExpense-container-grid {
   align-items: center;
   text-align: center;
 }
-main .detailedExpense-container-grid .h1-container {
+main .expense-container-grid .detailedExpense-container-grid .h1-container {
   grid-area: h1;
   margin: 5px;
   padding: 5px;
   border: solid 1px #2F4F4F;
   text-align: left;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form {
   grid-area: detailedExpenseform;
   display: grid;
   margin: 5px;
@@ -758,7 +844,7 @@ main .detailedExpense-container-grid .detailedExpense-grid-form {
   grid-template-rows: repeat(4, auto);
   grid-template-areas: "detailedExpenseSelect" "detailedExpenseBtn" "detailedExpenseContainer" "detailedExpenseAmmount";
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-select {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-select {
   grid-area: detailedExpenseSelect;
   display: grid;
   margin: 5px;
@@ -767,19 +853,19 @@ main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense
   grid-template-columns: 1fr auto;
   grid-template-areas: "label input";
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-add-btn {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-add-btn {
   grid-area: detailedExpenseBtn;
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container {
   grid-area: detailedExpenseContainer;
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container {
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
@@ -787,13 +873,13 @@ main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense
   grid-template-columns: 1fr auto;
   grid-template-areas: "input delete";
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input {
   grid-area: input;
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input {
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
@@ -802,13 +888,13 @@ main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense
   grid-template-areas: "label1 input";
   align-items: center;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input .detailed-label {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input .detailed-label {
   grid-area: label1;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input .detailed-input {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input .detailed-input {
   grid-area: input;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-delete {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-delete {
   grid-area: delete;
   background-color: #ff4d4d;
   color: white;
@@ -817,7 +903,7 @@ main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense
   cursor: pointer;
   border-radius: 4px;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-ammount {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-ammount {
   grid-area: detailedExpenseAmmount;
   margin: 5px;
   padding: 5px;
@@ -827,7 +913,7 @@ main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense
   align-items: baseline;
   grid-template-columns: auto 1fr;
 }
-main .detailedExpense-container-grid .detailedExpense-save-btn {
+main .expense-container-grid .detailedExpense-container-grid .detailedExpense-save-btn {
   grid-area: detailedExpensebtn;
   width: 100%;
 }
@@ -977,6 +1063,17 @@ main .transactions-grid .transactions-results-container .transaction-container-d
 /* --------------------------------------------------------- */
 /* -------- Contenedor exclusivo de Simple expense --------- */
 /* --------------------------------------------------------- */
+/* --------------------------------------------------------- */
+/* Contenedor de simple y detailed container-grid */
+/* Interruptor de expense */
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */

@@ -140,6 +140,24 @@ main{
                 }
             }
         }
+    .expense-container-grid{
+        @include expense-container-grid;
+        .expense-h1-toggle-div{
+            @include expense-h1-toggle-div;
+                .h1-container{
+                    @include h1-container;
+                    border: none;
+                }
+                .switch-container{
+                    @include switch-container;
+                    .switch{
+                        @include switch;
+                        .slider{
+                            @include slider;
+                        }
+                    }
+                }
+        }
         /*---------------------------------------------*/
         /*----------- Simple Expense grid -------------*/
         /*---------------------------------------------*/
@@ -171,23 +189,16 @@ main{
             }
             .detailedExpense-grid-form{
                 @include detailedExpense-grid-form;
-
-
-
                 .detailedExpense-select{
                     @include detailedExpense-select;
                 }
                 .detailedExpense-add-btn{
                     @include detailedExpense-add-btn;
                 }
-
-
-                
                 .detailedExpense-container{
                     @include detailedExpense-container;
                     .detailedExpense-div-container{
                         @include detailedExpense-div-container;
-
                         .detailedExpense-input{
                             @include detailedExpense-input;
                             .detailedExpense-label-input{
@@ -198,7 +209,6 @@ main{
                                 .detailed-input{
                                     @include detailed-input;
                                 }
-                                
                             }
                         }
                         .detailedExpense-delete{
@@ -206,10 +216,6 @@ main{
                         }
                     }
                 }
-
-
-
-
                 .detailedExpense-ammount{
                     @include detailedExpense-ammount;
                 }
@@ -218,6 +224,7 @@ main{
                 @include detailedExpense-save-btn;
             }
         }
+    }
         /*---------------------------------------------*/
         /*---------------- Income grid ----------------*/
         /*---------------------------------------------*/

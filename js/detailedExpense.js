@@ -85,9 +85,7 @@ populateCategoryDropdown(document.getElementById("detailedExpenseCategory"));
 
 
 
-/* ------------------------------------------------------------------------- */
-/* --------------------- MODIFICAR GRABARa CADA DIV --------------------------- */
-/* ------------------------------------------------------------------------- */
+/* Modificación 11/12/24 - Se graba el detallado por cada div */
 // /* Modificación de balance de cuenta */
 // document.getElementById("saveDetailedExpense").addEventListener("click", function (event) {
 //     event.preventDefault();
@@ -116,7 +114,7 @@ populateCategoryDropdown(document.getElementById("detailedExpenseCategory"));
 //     currentAccount.accountBalance = currentBalance;
 //     localStorage.setItem("account",JSON.stringify(account));
 
-//     // Creamos el objeto transaction
+// Creamos el objeto transaction
 //     const detailedTransaction = { 
 //         date: new Date().toISOString(), 
 //         accountId: detailedExpenseAccountId, 
@@ -128,7 +126,7 @@ populateCategoryDropdown(document.getElementById("detailedExpenseCategory"));
 //         commentary: detailedExpenseCommentary,
 //         inventory: state.inventory, 
 //         transaction_type: state.transaction_type }; 
-//     // Cargar las transacciones históricas y agregar la nueva 
+//     Cargar las transacciones históricas y agregar la nueva 
 //     const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 //     transactions.push(detailedTransaction); 
 //     localStorage.setItem("transactions", JSON.stringify(transactions));
@@ -149,8 +147,7 @@ populateCategoryDropdown(document.getElementById("detailedExpenseCategory"));
 // }
 // );
 /* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
+
 
 /* Modificación de balance de cuenta */ 
 document.getElementById("saveDetailedExpense").addEventListener("click", function (event) { 
