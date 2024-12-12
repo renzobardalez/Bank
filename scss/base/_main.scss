@@ -171,27 +171,45 @@ main{
             }
             .detailedExpense-grid-form{
                 @include detailedExpense-grid-form;
+
+
+
                 .detailedExpense-select{
                     @include detailedExpense-select;
-                    .detailedExpense-input{
-                        @include detailedExpense-input;
-                    }
-                    .detailedExpense-form-field{
-                        @include detailedExpense-form-field;
-                    }
                 }
                 .detailedExpense-add-btn{
                     @include detailedExpense-add-btn;
                 }
-                .detailedExpense-input-container{
-                    @include detailedExpense-input-container;
-                    .detailedExpense-input{
-                        @include detailedExpense-input;
-                    }
-                    .detailedExpense-form-field{
-                        @include detailedExpense-form-field;
+
+
+                
+                .detailedExpense-container{
+                    @include detailedExpense-container;
+                    .detailedExpense-div-container{
+                        @include detailedExpense-div-container;
+
+                        .detailedExpense-input{
+                            @include detailedExpense-input;
+                            .detailedExpense-label-input{
+                                @include detailedExpense-label-input;
+                                .detailed-label{
+                                    @include detailed-label;
+                                }
+                                .detailed-input{
+                                    @include detailed-input;
+                                }
+                                
+                            }
+                        }
+                        .detailedExpense-delete{
+                            @include detailedExpense-delete;
+                        }
                     }
                 }
+
+
+
+
                 .detailedExpense-ammount{
                     @include detailedExpense-ammount;
                 }

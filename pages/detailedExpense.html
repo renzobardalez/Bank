@@ -33,41 +33,96 @@
             <h1 class="h1-container"> Detailed expense </h1>
             <form class="detailedExpense-grid-form" action="">
                 <div class="detailedExpense-select"> 
-                    <div class="detailedExpense-input">
-                        <label class="detailedExpense-form-field" for="detailedExpenseAccount">Select your expense account: </label>
-                        <select class="detailedExpense-form-field" name="account" id="detailedExpenseAccount">
+                        <label for="detailedExpenseAccount">Select your expense account: </label>
+                        <select name="account" id="detailedExpenseAccount">
                             <option value=""></option>
                         </select>
+                </div>
+                <button class="detailedExpense-add-btn" id="addDetailedExpense" type="button"> Add </button>
+                <div class="detailedExpense-container" id="detailedExpenseContainer">
+                    <div class="detailedExpense-div-container" id="detailedExpenseDivContainer">
+                        <div class="detailedExpense-input" id="detailedExpenseInput" >
+                            <div class="detailedExpense-label-input">
+                                <label class="detailed-label" for="detailedExpenseDescription"> Description: </label>
+                                <input class="detailed-input" id="detailedExpenseDescription" type="text" required>
+                            </div>
+                            <div class="detailedExpense-label-input">
+                                <label class="detailed-label" for="detailedExpenseCategory"> Category: </label>
+                                <select class="detailed-input" name="detailedExpenseCategory" id="detailedExpenseCategory" required>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="detailedExpense-label-input">
+                                <label class="detailed-label" for="detailedExpenseAmmount"> Ammount: </label>
+                                <input class="detailed-input" type="number" name="" id="detailedExpenseAmmount" required>
+                            </div>
+                            <div class="detailedExpense-label-input">
+                                <label class="detailed-label" for="detailedExpenseCommentary"> Commentary: </label>
+                                <input class="detailed-input" type="text" name="detailedExpenseCommentary" id="detailedExpenseCommentary">
+                            </div>
+                            <!-- <div class="detailedExpense-label-input">
+                                <label for=""> Shared comsumption: </label>
+                                <div>
+                                    <label for="yes"> Yes </label>
+                                    <input type="radio" id="yes" name="answer" value="yes">
+                                    <label for="no"> No </label>
+                                    <input type="radio" id="no" name="answer" value="no">
+                                </div>
+                            </div> -->
+                        </div>  
+                        <button class="detailedExpense-delete" id="detailedExpenseDelete"> Delete </button>
                     </div>
                 </div>
-                <button class="detailedExpense-add-btn" id="addDetailedExpense" type=""> Add </button>
-                <div class="detailedExpense-input-container">
-                    <div class="detailedExpense-input">
-                        <label class="detailedExpense-form-field" for="detailedExpenseDescription"> Description: </label>
-                        <input class="detailedExpense-form-field" id="detailedExpenseDescription" type="text" required>
-                        <label class="detailedExpense-form-field" for="detailedExpenseCategory"> Category: </label>
-                        <select class="detailedExpense-form-field" name="detailedExpenseCategory" id="detailedExpenseCategory" required>
-                            <option value=""></option>
-                        </select>
-                        <label class="detailedExpense-form-field" for="detailedExpenseAmmount"> Ammount: </label>
-                        <input class="detailedExpense-form-field" type="number" name="" id="detailedExpenseAmmount" required>
-                        <label class="detailedExpense-form-field" for="detailedExpenseCommentary"> Commentary: </label>
-                        <input class="detailedExpense-form-field" type="text" name="detailedExpenseCommentary" id="detailedExpenseCommentary">
-                        <label class="detailedExpense-form-field" for=""> Shared comsumption: </label>
-                        <div class="detailedExpense-form-field">
-                            <label for="yes"> Yes </label>
-                            <input type="radio" id="yes" name="answer" value="yes">
-                            <label for="no"> No </label>
-                            <input type="radio" id="no" name="answer" value="no">
-                        </div>
+                <template id="detailedExpenseContainerTemplate">
+                    <div class="detailedExpense-div-container" id="detailedExpenseDivContainer">
+                        <div class="detailedExpense-input" id="detailedExpenseInput" >
+                            <div class="detailedExpense-label-input">
+                                <label class="detailed-label" for="detailedExpenseDescription"> Description: </label>
+                                <input class="detailed-input" id="detailedExpenseDescription" type="text" required>
+                            </div>
+                            <div class="detailedExpense-label-input">
+                                <label class="detailed-label" for="detailedExpenseCategory"> Category: </label>
+                                <select class="detailed-input" name="detailedExpenseCategory" id="detailedExpenseCategory" required>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="detailedExpense-label-input">
+                                <label class="detailed-label" for="detailedExpenseAmmount"> Ammount: </label>
+                                <input class="detailed-input" type="number" name="" id="detailedExpenseAmmount" required>
+                            </div>
+                            <div class="detailedExpense-label-input">
+                                <label class="detailed-label" for="detailedExpenseCommentary"> Commentary: </label>
+                                <input class="detailed-input" type="text" name="detailedExpenseCommentary" id="detailedExpenseCommentary">
+                            </div>
+                            <!-- <div class="detailedExpense-label-input">
+                                <label for=""> Shared comsumption: </label>
+                                <div>
+                                    <label for="yes"> Yes </label>
+                                    <input type="radio" id="yes" name="answer" value="yes">
+                                    <label for="no"> No </label>
+                                    <input type="radio" id="no" name="answer" value="no">
+                                </div>
+                            </div> -->
+                        </div>  
+                        <button class="detailedExpense-delete" id="detailedExpenseDelete"> Delete </button>
                     </div>
-                </div>
+                </template>
                 <div class="detailedExpense-ammount">
-                    <label class="detailedExpense-form-field" for="detailedExpenseAmmount"> Ammount: </label>
-                    <p id="detailedExpenseAmmount"> Monto total de los divs </p>
+                    <p id="detailedExpenseTotalAmmount"> Total expense: 0.00 </p>
                 </div>
             </form>
-            <button class="detailedExpense-save-btn" id="saveDetailedExpense" type=""> Save </button>
+
+
+
+
+
+
+
+
+
+
+
+            <button class="detailedExpense-save-btn" id="saveDetailedExpense" type="button"> Save </button>
             <p id="detailedExpenseMessage"></p>
         </section>
     </main>

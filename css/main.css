@@ -147,6 +147,7 @@ header .menu-header-grid .nav-bar .option-div {
   justify-content: center;
   text-decoration: none;
   color: #2F4F4F;
+  cursor: pointer;
 }
 header .action-header-grid {
   display: grid;
@@ -208,6 +209,7 @@ header .action-header-grid .nav-bar .option-div {
   justify-content: center;
   text-decoration: none;
   color: #2F4F4F;
+  cursor: pointer;
 }
 
 /* Mixin */
@@ -533,6 +535,7 @@ main .action-grid .option-div {
   justify-content: center;
   text-decoration: none;
   color: #2F4F4F;
+  cursor: pointer;
 }
 main .configuration-grid {
   display: grid;
@@ -753,7 +756,7 @@ main .detailedExpense-container-grid .detailedExpense-grid-form {
   border: solid 1px #5e6666;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(4, auto);
-  grid-template-areas: "detailedExpenseSelect" "detailedExpenseBtn" "detailedExpenseInputContainer" "detailedExpenseAmmount";
+  grid-template-areas: "detailedExpenseSelect" "detailedExpenseBtn" "detailedExpenseContainer" "detailedExpenseAmmount";
 }
 main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-select {
   grid-area: detailedExpenseSelect;
@@ -761,56 +764,58 @@ main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
-  grid-template-columns: auto 1fr;
-}
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-select .detailedExpense-input {
-  margin: 5px;
-  padding: 5px;
-  border: solid 1px #5e6666;
-  gap: 1rem;
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
-  justify-items: end;
-  align-items: baseline;
-}
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-select .detailedExpense-form-field {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "label input";
 }
 main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-add-btn {
   grid-area: detailedExpenseBtn;
   margin: 5px;
+  padding: 5px;
   border: solid 1px #5e6666;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-input-container {
-  grid-area: detailedExpenseInputContainer;
-  display: grid;
+main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container {
+  grid-area: detailedExpenseContainer;
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
-  grid-template-columns: auto 1fr;
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-input-container .detailedExpense-input {
+main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container {
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
-  gap: 1rem;
   display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
-  justify-items: end;
-  align-items: baseline;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "input delete";
 }
-main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-input-container .detailedExpense-form-field {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
+main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input {
+  grid-area: input;
+  margin: 5px;
+  padding: 5px;
+  border: solid 1px #5e6666;
+}
+main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input {
+  margin: 5px;
+  padding: 5px;
+  border: solid 1px #5e6666;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "label1 input";
   align-items: center;
+}
+main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input .detailed-label {
+  grid-area: label1;
+}
+main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-input .detailedExpense-label-input .detailed-input {
+  grid-area: input;
+}
+main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-container .detailedExpense-div-container .detailedExpense-delete {
+  grid-area: delete;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 main .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-ammount {
   grid-area: detailedExpenseAmmount;

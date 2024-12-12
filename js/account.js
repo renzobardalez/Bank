@@ -99,18 +99,3 @@ account.forEach((elm) => {
     `
     configResultsContainer.appendChild(div)
 });
-
-
-
-
-
-
-
-
-
-
-fetch('https://openexchangerates.org/api/currencies.json')
-    .then((resp) => resp.json())
-    .then((data)=>{
-    
-    })

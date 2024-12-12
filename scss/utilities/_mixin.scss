@@ -119,6 +119,7 @@
     justify-content: center;
     text-decoration: none;
     color: $main_letter_color;
+    cursor: pointer;
 }
 /* ----------------------------------------------------------*/
 /* -------------------- Estilos de main -------------------- */
@@ -586,10 +587,6 @@
     align-items: center;
     text-align: center;
 }
-
-
-
-
 @mixin detailedExpense-grid-form{
     grid-area: detailedExpenseform;
     display: grid;
@@ -601,7 +598,7 @@
     grid-template-areas: 
     "detailedExpenseSelect"
     "detailedExpenseBtn"
-    "detailedExpenseInputContainer"
+    "detailedExpenseContainer"
     "detailedExpenseAmmount";
 }
 @mixin detailedExpense-select{
@@ -610,38 +607,64 @@
     margin: 5px;
     padding: 5px;
     border: solid 1px $secondary-borders;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "label input";
 } 
+
+
+
 @mixin detailedExpense-add-btn{
     grid-area: detailedExpenseBtn;
     margin: 5px;
+    padding: 5px;
     border: solid 1px $secondary-borders;
 }
-@mixin detailedExpense-input-container{
-    grid-area: detailedExpenseInputContainer;
-    display: grid;
+@mixin detailedExpense-container{
+    grid-area: detailedExpenseContainer;
     margin: 5px;
     padding: 5px;
     border: solid 1px $secondary-borders;
-    grid-template-columns: auto 1fr;
+}
+@mixin detailedExpense-div-container{
+    margin: 5px;
+    padding: 5px;
+    border: solid 1px $secondary-borders;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+    "input delete";
 }
 @mixin detailedExpense-input{
+    grid-area: input;
     margin: 5px;
     padding: 5px;
     border: solid 1px $secondary-borders;
-    gap: 1rem;
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: subgrid;
-    justify-items: end;
-    align-items: baseline;
 }
-@mixin detailedExpense-form-field{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+@mixin detailedExpense-label-input{
+    margin: 5px;
+    padding: 5px;
+    border: solid 1px $secondary-borders;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: 
+    "label1 input";
+    align-items: center;}
+    
+@mixin detailed-label{
+        grid-area: label1;
+    }
+@mixin detailed-input{
+        grid-area: input;
+    }
+
+@mixin detailedExpense-delete{
+    grid-area: delete;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
 }
 @mixin detailedExpense-ammount{
     grid-area: detailedExpenseAmmount;
@@ -653,10 +676,6 @@
     align-items: baseline;
     grid-template-columns: auto 1fr;
 }
-
-
-
-
 @mixin detailedExpense-save-btn{
     grid-area: detailedExpensebtn;
     width: 100%;
