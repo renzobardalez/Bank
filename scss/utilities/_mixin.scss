@@ -673,8 +673,9 @@ input:checked + .slider:before {
     margin: 5px;
     padding: 5px;
     border: solid 1px $secondary-borders;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr;
     grid-template-areas: "label input";
+    gap: 20px;
 } 
 @mixin detailedExpense-add-btn{
     grid-area: detailedExpenseBtn;

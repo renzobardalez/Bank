@@ -123,13 +123,15 @@ function simpleExpenseTransaction () {
     document.getElementById("saveSimpleExpense").addEventListener("click", function (event) {
         event.preventDefault();
         /* Verificación del array */
-        const account = JSON.parse(localStorage.getItem("account")) || [];
+        const {bank, account, state} = callExpenseArrays();
+        // const account = JSON.parse(localStorage.getItem("account")) || [];
         /* Obtenemos los valores de la página */
         const simpleExpenseAccountId = parseInt(document.getElementById("simpleExpenseAccount").value);
         const simpleExpenseAmmount = Math.abs(parseFloat(document.getElementById("simpleExpenseAmmount").value));
-        if (!simpleExpenseAccountId || isNaN(simpleExpenseAmmount)
-        ){
-            showMessage ('simpleExpenseMessage','Por favor ingrese valores válidos.')
+        const simpleExpenseDescription = document.getElementById("simpleExpenseDescription").value;
+        if (!simpleExpenseAccountId || isNaN(simpleExpenseAmmount) || !simpleExpenseDescription)
+        {
+            showMessage ('simpleExpenseMessage','Por favor llene todos los campos.')
             return;
         }
         const currentAccount = account.find(elm => elm.id === simpleExpenseAccountId)
@@ -142,7 +144,8 @@ function simpleExpenseTransaction () {
                 date: new Date().toISOString(), 
                 accountId: simpleExpenseAccountId, 
                 bankName: bank.find(b => b.id === currentAccount.accountBankId)?.bankName || "Unknown bank", 
-                accountName: currentAccount.accountName, 
+                accountName: currentAccount.accountName,
+                description: simpleExpenseDescription,
                 amount: simpleExpenseAmmount, 
                 inventory: state.inventory, 
                 transaction_type: state.transaction_type }; 
@@ -163,10 +166,6 @@ function simpleExpenseTransaction () {
         }
     });
 }
-
-
-
-
 
 /* ----------------- JS para Detailed Expense ----------------- */
 function detailedExpenseTransaction() {
@@ -222,18 +221,8 @@ function detailedExpenseTransaction() {
     // Opción dinámica de account
     populateBankDropdown ('detailedExpenseAccount');
 
-
     // Inicializa el dropdown del div nativo de lapágina
     populateCategoryDropdown(document.getElementById("detailedExpenseCategory"));  
-
-
-
-
-
-
-
-
-
 
     /* Modificación de balance de cuenta */ 
     document.getElementById("saveDetailedExpense").addEventListener("click", function (event) { 
@@ -242,9 +231,10 @@ function detailedExpenseTransaction() {
         const {account, bank, currency, state} = callExpenseArrays();
         /* Obtenemos los valores de la página */
         const detailedExpenseAccountId = parseInt(document.getElementById("detailedExpenseAccount").value);
+        const detailedMainExpenseDescription = document.getElementById("detailedMainExpenseDescription").value;
         const currentAccount = account.find(elm => elm.id === detailedExpenseAccountId);
-        if (!currentAccount) { 
-            showMessage('detailedExpenseMessage','Por favor seleccione una cuenta válida.');
+        if (!currentAccount || !currentAccount !== 0 || !detailedMainExpenseDescription) { 
+            showMessage('detailedExpenseMessage','Por favor seleccione una cuenta válida y agregue una descripción para su transacción.');
             return;
         }
 
@@ -252,24 +242,24 @@ function detailedExpenseTransaction() {
         document.querySelectorAll(".detailedExpense-div-container").forEach(container => { 
             const {category} = callExpenseArrays();
             console.log(category)
-            const detailedExpenseDescription = container.querySelector("#detailedExpenseDescription").value; 
+            const detailedExpenseItem = container.querySelector("#detailedExpenseItem").value; 
             const detailedExpenseCategoryId = parseInt(container.querySelector("#detailedExpenseCategory").value); 
             const detailedExpenseAmmount = Math.abs(parseFloat(container.querySelector("#detailedExpenseAmmount").value)); 
             const detailedExpenseCommentary = container.querySelector("#detailedExpenseCommentary").value; 
             const currentCategory = category.find(e => e.id === detailedExpenseCategoryId); 
-            if (!currentCategory || !detailedExpenseDescription || isNaN(detailedExpenseAmmount)) { 
+            if (!currentCategory || !detailedExpenseItem || isNaN(detailedExpenseAmmount)) { 
                 showMessage('detailedExpenseMessage','Por favor ingrese valores válidos en todos los detalles.')
                 return;
             }
             transactionDetails.push({ 
-                descriptionName: detailedExpenseDescription, 
+                itemName: detailedExpenseItem, 
                 categoryName: currentCategory.categoryName, 
                 amount: detailedExpenseAmmount, 
                 commentary: detailedExpenseCommentary
             });
         });
-        
         /* Actualización de balance */
+        // Calculamos la suma de todos los input de cada detalle
         const totalAmount = transactionDetails.reduce((sum, detail) => sum + detail.amount, 0);
         currentAccount.accountBalance -= totalAmount;
         localStorage.setItem("account", JSON.stringify(account)); 
@@ -279,7 +269,8 @@ function detailedExpenseTransaction() {
             accountId: detailedExpenseAccountId,
             bankName: bank.find(b => b.id === currentAccount.accountBankId)?.bankName || "Unknown bank",
             accountName: currentAccount.accountName,
-            amount: detailedExpenseAmmount,
+            amount: totalAmount,
+            description: 'Check detail',
             transactionDetails: transactionDetails,
             inventory: state.inventory,
             transaction_type: state.transaction_type
@@ -298,7 +289,7 @@ function detailedExpenseTransaction() {
         /* Reseteamos los campos */
         document.getElementById("detailedExpenseAccount").value = ""; 
         document.querySelectorAll(".detailedExpense-div-container").forEach(container => { 
-            container.querySelector("#detailedExpenseDescription").value = ""; 
+            container.querySelector("#detailedExpenseItem").value = ""; 
             container.querySelector("#detailedExpenseCategory").value = ""; 
             container.querySelector("#detailedExpenseAmmount").value = ""; 
             container.querySelector("#detailedExpenseCommentary").value = "";

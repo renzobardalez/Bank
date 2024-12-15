@@ -53,6 +53,10 @@
                         <label class="simpleExpense-form-field" for="simpleExpenseAmmount"> Ammount: </label>
                         <input class="simpleExpense-form-field" id="simpleExpenseAmmount" type="number">
                     </div>
+                    <div class="simpleExpense-input">
+                        <label class="simpleExpense-form-field" for="simpleExpenseDescription"> Description: </label>
+                        <input class="simpleExpense-form-field" id="simpleExpenseDescription" type="text">
+                    </div>
                 </form>
                 <button class="simpleExpense-save-btn" id="saveSimpleExpense" type=""> Save </button>
                 <p id="simpleExpenseMessage"></p>
@@ -65,14 +69,16 @@
                             <select name="account" id="detailedExpenseAccount">
                                 <option value=""></option>
                             </select>
+                            <label for="detailedMainExpenseDescription"> Description: </label>
+                            <input id="detailedMainExpenseDescription" type="text">    
                     </div>
                     <button class="detailedExpense-add-btn" id="addDetailedExpense" type="button"> Add </button>
                     <div class="detailedExpense-container" id="detailedExpenseContainer">
                         <div class="detailedExpense-div-container" id="detailedExpenseDivContainer">
                             <div class="detailedExpense-input" id="detailedExpenseInput" >
                                 <div class="detailedExpense-label-input">
-                                    <label class="detailed-label" for="detailedExpenseDescription"> Description: </label>
-                                    <input class="detailed-input" id="detailedExpenseDescription" type="text" required>
+                                    <label class="detailed-label" for="detailedExpenseItem"> Item: </label>
+                                    <input class="detailed-input" id="detailedExpenseItem" type="text" required>
                                 </div>
                                 <div class="detailedExpense-label-input">
                                     <label class="detailed-label" for="detailedExpenseCategory"> Category: </label>

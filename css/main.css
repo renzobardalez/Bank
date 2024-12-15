@@ -850,8 +850,9 @@ main .expense-container-grid .detailedExpense-container-grid .detailedExpense-gr
   margin: 5px;
   padding: 5px;
   border: solid 1px #5e6666;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr;
   grid-template-areas: "label input";
+  gap: 20px;
 }
 main .expense-container-grid .detailedExpense-container-grid .detailedExpense-grid-form .detailedExpense-add-btn {
   grid-area: detailedExpenseBtn;
