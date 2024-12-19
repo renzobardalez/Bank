@@ -231,9 +231,9 @@ function detailedExpenseTransaction() {
         const {account, bank, currency, state} = callExpenseArrays();
         /* Obtenemos los valores de la página */
         const detailedExpenseAccountId = parseInt(document.getElementById("detailedExpenseAccount").value);
-        const detailedMainExpenseDescription = document.getElementById("detailedMainExpenseDescription").value;
+        const detailedExpenseDescription = document.getElementById("detailedExpenseDescription").value;
         const currentAccount = account.find(elm => elm.id === detailedExpenseAccountId);
-        if (!currentAccount || !currentAccount !== 0 || !detailedMainExpenseDescription) { 
+        if (!currentAccount || !currentAccount !== 0 || !detailedExpenseDescription) { 
             showMessage('detailedExpenseMessage','Por favor seleccione una cuenta válida y agregue una descripción para su transacción.');
             return;
         }
