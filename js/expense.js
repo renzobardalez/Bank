@@ -228,12 +228,12 @@ function detailedExpenseTransaction() {
     document.getElementById("saveDetailedExpense").addEventListener("click", function (event) { 
         event.preventDefault();
         /* Verificación del array */
-        const {account, bank, currency, state} = callExpenseArrays();
+        const {account, bank, state} = callExpenseArrays();
         /* Obtenemos los valores de la página */
         const detailedExpenseAccountId = parseInt(document.getElementById("detailedExpenseAccount").value);
         const detailedMainExpenseDescription = document.getElementById("detailedMainExpenseDescription").value;
         const currentAccount = account.find(elm => elm.id === detailedExpenseAccountId);
-        if (!currentAccount || !currentAccount !== 0 || !detailedMainExpenseDescription) { 
+        if (!currentAccount || currentAccount === 0 || !detailedMainExpenseDescription) { 
             showMessage('detailedExpenseMessage','Por favor seleccione una cuenta válida y agregue una descripción para su transacción.');
             return;
         }
@@ -241,7 +241,6 @@ function detailedExpenseTransaction() {
         const transactionDetails = []; 
         document.querySelectorAll(".detailedExpense-div-container").forEach(container => { 
             const {category} = callExpenseArrays();
-            console.log(category)
             const detailedExpenseItem = container.querySelector("#detailedExpenseItem").value; 
             const detailedExpenseCategoryId = parseInt(container.querySelector("#detailedExpenseCategory").value); 
             const detailedExpenseAmmount = Math.abs(parseFloat(container.querySelector("#detailedExpenseAmmount").value)); 
@@ -278,8 +277,7 @@ function detailedExpenseTransaction() {
         // Cargar las transacciones históricas y agregar la nueva 
         const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
         transactions.push(detailedTransaction); 
-        console.log(transactions);
-        setTimeout(() => {
+            setTimeout(() => {
             window.location.reload();
         }, 3000);
         localStorage.setItem("transactions", JSON.stringify(transactions));

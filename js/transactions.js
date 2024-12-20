@@ -49,27 +49,14 @@ transactions.forEach((elm) => {
     // Creamos los divs de cada transacción
     const div = document.createElement("div")
     div.classList.add("transaction-container-div")
-    if(!elm.categoryName){
         div.innerHTML = 
         `
         <div> Bank Name: ${elm.bankName}</div>
         <div> Account: ${elm.accountName}</div>
-        <div> Category: - </div>
         <div> Ammount: ${elm.amount}</div>
         <div> Type: ${transactionType}</div>
         <div> Date: ${elm.date}</div>
         `    
-    } else{
-        div.innerHTML = 
-        `
-        <div> Bank Name: ${elm.bankName}</div>
-        <div> Account: ${elm.accountName}</div>
-        <div> Category: ${elm.categoryName}</div>
-        <div> Ammount: ${elm.amount}</div>
-        <div> Type: ${transactionType}</div>
-        <div> Date: ${elm.date}</div>
-        `
     
-    }
     transactionsResultsContainer.appendChild(div)
 });
