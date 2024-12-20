@@ -232,15 +232,26 @@ function detailedExpenseTransaction() {
         /* Obtenemos los valores de la página */
         const detailedExpenseAccountId = parseInt(document.getElementById("detailedExpenseAccount").value);
         const detailedMainExpenseDescription = document.getElementById("detailedMainExpenseDescription").value;
+
         const currentAccount = account.find(elm => elm.id === detailedExpenseAccountId);
-        if (!currentAccount || currentAccount === 0 || !detailedMainExpenseDescription) { 
+        if (!currentAccount || !detailedMainExpenseDescription) { 
             showMessage('detailedExpenseMessage','Por favor seleccione una cuenta válida y agregue una descripción para su transacción.');
             return;
         }
 
-        const transactionDetails = []; 
+        const transactionDetails = [];
+        // Para detectar si hay errores
+        let hasErrors = false;
         document.querySelectorAll(".detailedExpense-div-container").forEach(container => { 
             const {category} = callExpenseArrays();
+            // Validamos que el desplegable contenga un valor
+            const detailedExpenseCategoryValue = container.querySelector("#detailedExpenseCategory").value;
+            if (detailedExpenseCategoryValue === ""){
+                showMessage('detailedExpenseMessage','Por favor seleccione una categoría del desplegable.');
+                hasErrors = true;
+                return;
+            }
+            // Validamos los demás campos
             const detailedExpenseItem = container.querySelector("#detailedExpenseItem").value; 
             const detailedExpenseCategoryId = parseInt(container.querySelector("#detailedExpenseCategory").value); 
             const detailedExpenseAmmount = Math.abs(parseFloat(container.querySelector("#detailedExpenseAmmount").value)); 
@@ -248,6 +259,7 @@ function detailedExpenseTransaction() {
             const currentCategory = category.find(e => e.id === detailedExpenseCategoryId); 
             if (!currentCategory || !detailedExpenseItem || isNaN(detailedExpenseAmmount)) { 
                 showMessage('detailedExpenseMessage','Por favor ingrese valores válidos en todos los detalles.')
+                hasErrors = true;
                 return;
             }
             transactionDetails.push({ 
@@ -257,6 +269,10 @@ function detailedExpenseTransaction() {
                 commentary: detailedExpenseCommentary
             });
         });
+        // Detenemos si ha errores
+        if (hasErrors){
+            return;
+        }
         /* Actualización de balance */
         // Calculamos la suma de todos los input de cada detalle
         const totalAmount = transactionDetails.reduce((sum, detail) => sum + detail.amount, 0);
@@ -269,7 +285,7 @@ function detailedExpenseTransaction() {
             bankName: bank.find(b => b.id === currentAccount.accountBankId)?.bankName || "Unknown bank",
             accountName: currentAccount.accountName,
             amount: totalAmount,
-            description: 'Check detail',
+            description: detailedMainExpenseDescription,
             transactionDetails: transactionDetails,
             inventory: state.inventory,
             transaction_type: state.transaction_type
@@ -277,9 +293,6 @@ function detailedExpenseTransaction() {
         // Cargar las transacciones históricas y agregar la nueva 
         const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
         transactions.push(detailedTransaction); 
-            setTimeout(() => {
-            window.location.reload();
-        }, 3000);
         localStorage.setItem("transactions", JSON.stringify(transactions));
         /* Mensaje de éxito */
         showMessage('detailedExpenseMessage','Registro grabado con éxito.')
